@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>A Jornada</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="css/game.css">
+
+    <script type="module" src="js/main.js"></script>
+</head>
+<body>
+    <main id="game">
+        <section id="character-selection" class="screen">
+            <header class="menu-header">
+                <h1>A Jornada</h1>
+                <p>Escolha seu personagem para começar a aventura.</p>
+            </header>
+
+            <div class="characters">
+                <article class="character-card">
+                    <div class="character-image rabbit-image"
+                         role="img"
+                         aria-label="Ilustração do coelho"></div>
+
+                    <h2>Coelho</h2>
+                    <p>Uma jornada que começa pelo lado direito.</p>
+
+                    <button type="button" data-character="rabbit">
+                        Jogar com o coelho
+                    </button>
+                </article>
+
+                <article class="character-card">
+                    <div class="character-image fox-image"
+                         role="img"
+                         aria-label="Ilustração da raposa"></div>
+
+                    <h2>Raposa</h2>
+                    <p>Uma jornada que começa pelo lado esquerdo.</p>
+
+                    <button type="button" data-character="fox">
+                        Jogar com a raposa
+                    </button>
+                </article>
+            </div>
+        </section>
+
+
+        <section id="game-screen" class="screen" hidden>
+            <header class="room-header">
+                <h2>A sala do enigma</h2>
+                <p id="room-description"></p>
+            </header>
+
+            <div id="room" class="room">
+                <div class="room-wall wall-top"></div>
+                <div class="room-wall wall-bottom"></div>
+                <div class="room-wall wall-left"></div>
+                <div class="room-wall wall-right"></div>
+
+                <div id="player" class="player" aria-label="Personagem"></div>
+
+                <div id="key" class="key" aria-label="Chave">⚿</div>
+
+                <div id="door" class="door" aria-label="Porta">
+                    <span>SAÍDA</span>
+                </div>
+            </div>
+
+            <p class="room-instructions">
+                Explore a sala e encontre a chave para abrir a saída.
+            </p>
+        </section>
+
+
+        <section id="ending-screen" class="screen" hidden>
+            <h2>Juntos novamente!</h2>
+            <p>Depois de caminhos diferentes, os amigos se reencontram.</p>
+            <div id="ending-scene"></div>
+            <button type="button" id="restart-button">
+                Jogar novamente
+            </button>
+        </section>
+    </main>
+</body>
+</html>

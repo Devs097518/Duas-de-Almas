@@ -1,0 +1,299 @@
+
+/* ===== Cenário da tela inicial ===== */
+
+#character-selection {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 38px;
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            ellipse at 50% 35%,
+            rgba(196, 168, 95, 0.25),
+            transparent 48%
+        ),
+        radial-gradient(
+            ellipse at 10% 90%,
+            rgba(91, 119, 67, 0.55),
+            transparent 45%
+        ),
+        radial-gradient(
+            ellipse at 95% 10%,
+            rgba(76, 105, 63, 0.6),
+            transparent 40%
+        ),
+        linear-gradient(
+            145deg,
+            #172c22 0%,
+            #2e4b34 50%,
+            #192f25 100%
+        );
+}
+
+/* Luzes suaves entre as árvores */
+
+#character-selection::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            ellipse at 20% 20%,
+            rgba(222, 196, 124, 0.13),
+            transparent 25%
+        ),
+        radial-gradient(
+            ellipse at 80% 70%,
+            rgba(222, 196, 124, 0.10),
+            transparent 30%
+        );
+}
+
+/* ===== Título em uma placa de madeira ===== */
+
+.menu-header {
+    position: relative;
+    width: min(100%, 760px);
+    padding: 26px 32px;
+    text-align: center;
+
+    background:
+        linear-gradient(
+            180deg,
+            #78502f 0%,
+            #593923 48%,
+            #472d20 100%
+        );
+
+    border: 3px solid #b58b4c;
+    border-radius: 24px 12px 24px 12px;
+    box-shadow:
+        inset 0 0 0 3px rgba(42, 27, 17, 0.45),
+        inset 0 0 0 5px rgba(223, 188, 116, 0.16),
+        0 10px 0 rgba(17, 31, 22, 0.35),
+        0 18px 35px rgba(0, 0, 0, 0.22);
+}
+
+.menu-header h1 {
+    margin: 0;
+    color: #f8e6bc;
+    font-size: clamp(2rem, 5vw, 3.6rem);
+    line-height: 1.15;
+    font-weight: normal;
+    text-shadow: 0 3px 0 #422b1c;
+}
+
+.menu-header p {
+    margin: 14px 0 0;
+    color: #f0dfbb;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    line-height: 1.6;
+}
+
+/* ===== Cartões dos personagens ===== */
+
+.characters {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 280px));
+    gap: 28px;
+    width: 100%;
+    max-width: 588px;
+}
+
+.character-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    min-width: 0;
+    padding: 22px 20px 24px;
+    text-align: center;
+    color: var(--text-dark);
+
+    background:
+        radial-gradient(
+            ellipse at top,
+            rgba(255, 255, 255, 0.55),
+            transparent 75%
+        ),
+        var(--parchment);
+
+    border: 2px solid #c4a66d;
+    border-radius: 12px 12px 20px 20px;
+
+    box-shadow:
+        inset 0 0 0 4px rgba(255, 248, 222, 0.48),
+        0 8px 0 rgba(22, 35, 23, 0.3),
+        0 16px 30px rgba(0, 0, 0, 0.2);
+
+    transition:
+        transform 200ms ease,
+        box-shadow 200ms ease,
+        border-color 200ms ease;
+}
+
+/* Pequeno detalhe decorativo */
+
+.character-card::before {
+    content: "✦";
+    position: absolute;
+    top: 9px;
+    right: 13px;
+    color: #b08b4c;
+    font-size: 17px;
+    opacity: 0.8;
+}
+
+.character-card:hover {
+    transform: translateY(-6px);
+    border-color: #e4c47e;
+    box-shadow:
+        inset 0 0 0 4px rgba(255, 248, 222, 0.6),
+        0 11px 0 rgba(22, 35, 23, 0.25),
+        0 22px 38px rgba(0, 0, 0, 0.25);
+}
+
+/* ===== Ilustrações ===== */
+
+.character-image {
+    width: 160px;
+    height: 160px;
+    max-width: 100%;
+    margin-bottom: 8px;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    filter: drop-shadow(0 5px 3px rgba(68, 49, 28, 0.15));
+
+    transition: transform 200ms ease;
+}
+
+.character-card:hover .character-image {
+    transform: translateY(-3px) scale(1.035);
+}
+
+.rabbit-image {
+    background-image: url("../assets/sprites/coelho.png");
+}
+
+.fox-image {
+    background-image: url("../assets/sprites/raposa.png");
+}
+
+/* ===== Nome e descrição ===== */
+
+.character-card h2 {
+    margin: 8px 0;
+    color: #533a24;
+    font-size: 1.8rem;
+    font-weight: normal;
+}
+
+.character-card p {
+    min-height: 48px;
+    margin: 4px 0 22px;
+    color: #72583b;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+/* ===== Botões de aventura ===== */
+
+.character-card button,
+#restart-button {
+    width: 100%;
+    margin-top: auto;
+    padding: 13px 12px;
+
+    color: #fff0cb;
+    font-size: 0.98rem;
+    font-weight: bold;
+
+    background: linear-gradient(
+        180deg,
+        #3c6044 0%,
+        #274532 100%
+    );
+
+    border: 2px solid #c5a15b;
+    border-radius: 10px;
+    box-shadow:
+        inset 0 0 0 2px rgba(255, 255, 255, 0.06),
+        0 3px 0 #b28b4c;
+
+    transition:
+        background 160ms ease,
+        transform 160ms ease,
+        box-shadow 160ms ease;
+}
+
+.character-card button:hover,
+#restart-button:hover {
+    background: linear-gradient(
+        180deg,
+        #52764f 0%,
+        #34583a 100%
+    );
+    transform: translateY(-2px);
+    box-shadow:
+        inset 0 0 0 2px rgba(255, 255, 255, 0.1),
+        0 5px 0 #b28b4c;
+}
+
+.character-card button:active,
+#restart-button:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 #b28b4c;
+}
+
+/* ===== Telas menores ===== */
+
+@media (max-width: 560px) {
+    #character-selection {
+        gap: 28px;
+        padding: 36px 18px;
+    }
+
+    .menu-header {
+        padding: 22px 18px;
+    }
+
+    .characters {
+        grid-template-columns: 1fr;
+        max-width: 330px;
+        gap: 24px;
+    }
+
+    .character-card {
+        padding: 20px 22px 24px;
+    }
+
+    .character-image {
+        width: 145px;
+        height: 145px;
+    }
+
+    .character-card p {
+        min-height: auto;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .character-card,
+    .character-image,
+    .character-card button,
+    #restart-button {
+        transition: none;
+    }
+}

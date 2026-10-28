@@ -80,19 +80,58 @@
     top: 50%;
     left: 15%;
     display: grid;
-    width: 52px;
-    aspect-ratio: 1;
+    width: 82px;
+    height: 82px;
     place-items: center;
-    transform: translate(-50%, -50%);
-    font-size: 38px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    
+    /* Aqui usamos a variável --flip que o JS controla */
+    transform: translate(-50%, -50%) scaleX(var(--flip, 1));
+    border:#0000000d 1px solid;
 }
 
-.player.rabbit::before {
-    content: "🐰";
+/* === IMAGENS BASE (QUANDO ESTÁ PARADO) === */
+.player.rabbit {
+    background-image: url('../assets/sprites/coelho.png');
 }
 
-.player.fox::before {
-    content: "🦊";
+.player.fox {
+    background-image: url('../assets/sprites/raposa.png');
+}
+
+/* === ANIMAÇÕES DE ANDAR === */
+
+@keyframes andar-coelho {
+    0%, 100% {
+        background-image: url('../assets/sprites/coelho.png');
+        background-position: center 50%; /* Posição normal */
+    }
+    50% {
+        background-image: url('../assets/sprites/coelho-pulando.png');
+        background-position: center 40%; /* Sobe um pouquinho no pulo */
+    }
+}
+
+@keyframes andar-raposa {
+    0%, 100% {
+        background-image: url('../assets/sprites/raposa.png');
+        background-position: center 50%;
+    }
+    50% {
+        background-image: url('../assets/sprites/raposa-pulando.png');
+        background-position: center 40%;
+    }
+}
+
+/* Aplica as animações quando a classe .walking estiver ativa */
+.player.rabbit.walking {
+    animation: andar-coelho 0.4s infinite;
+}
+
+.player.fox.walking {
+    animation: andar-raposa 0.4s infinite;
 }
 
 .key {
@@ -169,4 +208,89 @@
     color: #b8f5c2;
     font-size: 10px;
     writing-mode: horizontal-tb;
+}
+
+/* === TELA FINAL === */
+#ending-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 100vh; /* Ocupa a tela toda */
+    background-color: #172a36; /* Mesma cor do fundo do jogo */
+    color: #f2d8a2;
+}
+
+#ending-screen h2 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+#ending-screen p {
+    color: #d4dedf;
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+}
+
+/* Container dos personagens */
+#ending-scene {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 30px; /* Distância entre eles */
+    margin-bottom: 50px;
+    height: 150px; /* Altura para caber a animação */
+}
+
+/* Estilo base dos personagens */
+.ending-character {
+    width: 120px;
+    height: 120px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    
+    /* Animação de flutuar */
+    animation: flutuar 2s ease-in-out infinite;
+}
+
+/* Imagens específicas */
+.ending-rabbit {
+    background-image: url('../assets/sprites/coelho.png');
+    animation-delay: 0s; /* Começa no tempo 0 */
+}
+
+.ending-fox {
+    background-image: url('../assets/sprites/raposa.png');
+    animation-delay: 1s; /* Começa 1 segundo depois, criando um efeito de gangorra */
+}
+
+/* Estilo do botão de reiniciar para combinar */
+#restart-button {
+    padding: 12px 24px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #172a36;
+    background-color: #f2d8a2;
+    width: 500px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+#restart-button:hover {
+    background-color: #fff;
+    transform: scale(1.05);
+}
+
+/* Animação de flutuar */
+@keyframes flutuar {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px); /* Sobe 20 pixels */
+    }
 }

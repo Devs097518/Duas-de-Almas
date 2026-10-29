@@ -1,7 +1,7 @@
 import { updateGame } from "./game.js";
 import { collidesWithObstacle } from "./obstacles.js";
 
-const SPEED = 0.6; // Altere este valor se quiser ele mais rápido ou devagar
+const SPEED = 0.3; // Altere este valor se quiser ele mais rápido ou devagar
 const MIN_X = 7;
 const MAX_X = 93;
 const MIN_Y = 10;
@@ -87,7 +87,10 @@ export function setupPlayerMovement() {
             const nextX = Math.max(MIN_X, Math.min(MAX_X, x + dx * SPEED));
             if (!collidesWithObstacle(nextX, y)) x = nextX;
 
-            const nextY = Math.max(MIN_Y, Math.min(MAX_Y, y + dy * SPEED));
+            const room = document.querySelector("#room");
+            const aspect = room.clientWidth / room.clientHeight; // ~1.78, e se adapta ao redimensionar a tela
+
+            const nextY = Math.max(MIN_Y, Math.min(MAX_Y, y + dy * SPEED * aspect));
             if (!collidesWithObstacle(x, nextY)) y = nextY;
 
             // Vira o personagem para esquerda ou direita

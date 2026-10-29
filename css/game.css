@@ -294,3 +294,25 @@
         transform: translateY(-20px); /* Sobe 20 pixels */
     }
 }
+
+.obstacle {
+    position: absolute;      /* <- era o que faltava */
+    z-index: 1;
+    box-sizing: border-box;
+    border: none;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: 100% 100%;
+    image-rendering: pixelated;
+}
+
+.obstacle::after { content: none; }
+
+/* Imagens */
+.obstacle.caixote { background-image: url('../assets/sprites/caixote.png'); }
+.obstacle.mesa    { background-image: url('../assets/sprites/mesa-cientifica.png'); }
+
+/* Provisórios, enquanto não há imagem destes tipos */
+.obstacle.bancada { background-color: #6b4d36; }
+.obstacle.estante { background-color: #5a4638; }

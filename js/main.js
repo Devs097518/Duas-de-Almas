@@ -6,14 +6,7 @@ import {
 } from "./player.js";
 import { setupGame, startRoom } from "./game.js";
 
-function showScreen(screenId) {
-    document.querySelectorAll(".screen").forEach((screen) => {
-        screen.hidden = screen.id !== screenId;
-    });
-
-    gameState.currentScreen = screenId;
-}
-
+console.log("main.js carregado");
 
 function startGame(character) {
     const characterName =
@@ -38,6 +31,14 @@ function startGame(character) {
 
     startRoom();
     showScreen("game-screen");
+}
+
+function showScreen(screenId) {
+    document.querySelectorAll(".screen").forEach((screen) => {
+        screen.hidden = screen.id !== screenId;
+    });
+
+    gameState.currentScreen = screenId;
 }
 
 

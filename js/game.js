@@ -4,17 +4,18 @@ import {
     canExit,
     resetPuzzle
 } from "./puzzle.js";
+import { renderObstacles } from "./obstacles.js";
+
+export function setupGame(onExit) {
+    exitCallback = onExit;
+    resetPuzzle();
+    renderObstacles(); // <- novo
+    document.addEventListener("keydown", handleGameKey);
+}
 
 let exitCallback = null;
 let isExiting = false;
 
-export function setupGame(onExit) {
-    exitCallback = onExit;
-
-    resetPuzzle();
-
-    document.addEventListener("keydown", handleGameKey);
-}
 
 export function startRoom() {
     isExiting = false;

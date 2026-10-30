@@ -8,6 +8,12 @@ import { setupGame, startRoom } from "./game.js";
 
 console.log("main.js carregado");
 
+// Posição do duto por personagem. Para canto inferior: top: "auto" e bottom: "5%"
+const EXITS = {
+    rabbit: { left: "auto", right: "2%",   top: "85%", bottom: "auto" }, 
+    fox:    { left: "auto", right: "3%",   top: "5%", bottom: "auto" }  // sup. direito
+};
+
 function startGame(character) {
     const characterName =
         character === "rabbit" ? "coelho" : "raposa";
@@ -26,8 +32,7 @@ function startGame(character) {
 
     const door = document.querySelector("#door");
 
-    door.style.left = character === "rabbit" ? "2%" : "auto";
-    door.style.right = character === "rabbit" ? "auto" : "2%";
+    Object.assign(door.style, EXITS[character]);
 
     startRoom();
     showScreen("game-screen");

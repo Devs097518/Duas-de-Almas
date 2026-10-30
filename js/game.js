@@ -30,7 +30,7 @@ export function updateGame() {
     const player = document.querySelector("#player");
     const door = document.querySelector("#door");
 
-    if (isColliding(player, door)) {
+    if (isColliding(player, door, 0.25)) {
         isExiting = true;
         exitCallback?.();
     }
@@ -49,14 +49,16 @@ function handleGameKey(event) {
     }
 }
 
-function isColliding(elementA, elementB) {
+function isColliding(elementA, elementB, shrink = 0) {
     const a = elementA.getBoundingClientRect();
     const b = elementB.getBoundingClientRect();
+    const insetX = a.width * shrink;
+    const insetY = a.height * shrink;
 
     return (
-        a.left < b.right &&
-        a.right > b.left &&
-        a.top < b.bottom &&
-        a.bottom > b.top
+        a.left + insetX < b.right &&
+        a.right - insetX > b.left &&
+        a.top + insetY < b.bottom &&
+        a.bottom - insetY > b.top
     );
 }

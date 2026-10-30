@@ -38,12 +38,38 @@ function startGame(character) {
     showScreen("game-screen");
 }
 
-function showScreen(screenId) {
-    document.querySelectorAll(".screen").forEach((screen) => {
-        screen.hidden = screen.id !== screenId;
-    });
+const FADE_MS = 500;
+let isTransitioning = false;
 
-    gameState.currentScreen = screenId;
+function showScreen(screenId, { fade = true } = {}) {
+    const swap = () => {
+        document.querySelectorAll(".screen").forEach((screen) => {
+            screen.hidden = screen.id !== screenId;
+        });
+        gameState.currentScreen = screenId;
+    };
+
+    // Sem transição (usado na primeira tela)
+    if (!fade) {
+        swap();
+        return;
+    }
+
+    if (isTransitioning) return;
+    isTransitioning = true;
+
+    const overlay = document.querySelector("#fade-overlay");
+
+    overlay.classList.add("active");          // escurece
+
+    setTimeout(() => {
+        swap();                               // troca a tela no escuro
+        overlay.classList.remove("active");   // clareia
+
+        setTimeout(() => {
+            isTransitioning = false;
+        }, FADE_MS);
+    }, FADE_MS);
 }
 
 
@@ -64,5 +90,5 @@ document.addEventListener("DOMContentLoaded", () => {
         .querySelector("#restart-button")
         .addEventListener("click", restartGame);
 
-    showScreen("character-selection");
+    showScreen("character-selection", { fade: false });
 });

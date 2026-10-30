@@ -287,3 +287,18 @@
 .obstacle.mesa    { background-image: url('../assets/sprites/mesa-cientifica.png'); }
 .obstacle.bancada { background-image: url('../assets/sprites/bancada-experimentos.png'); }
 .obstacle.estante { background-image: url('../assets/sprites/estante.png'); }
+
+#fade-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: #000;
+    opacity: 0;
+    pointer-events: none;          /* não atrapalha cliques quando invisível */
+    transition: opacity 0.5s ease; /* se mudar aqui, mude FADE_MS no main.js */
+}
+
+#fade-overlay.active {
+    opacity: 1;
+    pointer-events: auto;          /* bloqueia cliques durante a transição */
+}

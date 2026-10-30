@@ -1,3 +1,5 @@
+import { getCurrentRoom } from "./rooms.js";
+
 
 let hasKey = false;
 
@@ -27,6 +29,8 @@ export function checkKeyCollision() {
             "Você encontrou a chave de fenda! Agora pode abrir o duto.";
 
         document.querySelector("#door").classList.add("unlocked");
+        document.querySelector("#room-description").textContent =
+    getCurrentRoom().messages.found;
     }
 }
 

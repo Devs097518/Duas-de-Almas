@@ -5,6 +5,34 @@ import {
     setPlayerPosition
 } from "./player.js";
 import { setupGame, startRoom } from "./game.js";
+import { ROOMS, setCurrentRoom } from "./rooms.js";
+import { renderObstacles } from "./obstacles.js";
+
+function startGame(character) {
+    const room = ROOMS[character];
+    setCurrentRoom(room);
+
+    document.querySelector("#room-description").textContent = room.intro;
+    document.querySelector(".room-header h2").textContent = room.title;
+    document.querySelector(".room-instructions").textContent = room.instructions;
+
+    document.querySelector("#room").dataset.theme = room.theme;
+    renderObstacles(room.obstacles);
+
+    const key = document.querySelector("#key");
+    key.style.left = `${room.key.x}%`;
+    key.style.top = `${room.key.y}%`;
+
+    const door = document.querySelector("#door");
+    Object.assign(door.style, room.exit);
+
+    const player = document.querySelector("#player");
+    player.className = `player ${character}`;
+    setPlayerPosition(character);
+
+    startRoom();
+    showScreen("game-screen");
+}
 
 console.log("main.js carregado");
 
@@ -14,29 +42,6 @@ const EXITS = {
     fox:    { left: "auto", right: "3%",   top: "5%", bottom: "auto" }  // sup. direito
 };
 
-function startGame(character) {
-    const characterName =
-        character === "rabbit" ? "coelho" : "raposa";
-
-    document.querySelector("#room-description").textContent =
-        `Você escolheu o ${characterName}. ` +
-        (character === "rabbit"
-            ? "Sua jornada começa à direita."
-            : "Sua jornada começa à esquerda.");
-
-    const player = document.querySelector("#player");
-
-    player.className = `player ${character}`;
-
-    setPlayerPosition(character);
-
-    const door = document.querySelector("#door");
-
-    Object.assign(door.style, EXITS[character]);
-
-    startRoom();
-    showScreen("game-screen");
-}
 
 const FADE_MS = 500;
 let isTransitioning = false;

@@ -302,3 +302,10 @@
     opacity: 1;
     pointer-events: auto;          /* bloqueia cliques durante a transição */
 }
+
+/* Fundo por tema */
+.room[data-theme="raposa"] { background-color: #8fa57d; }
+
+/* Obstáculos provisórios da raposa (troque por background-image depois) */
+.obstacle.divisoria { background-color: #5b6b4a; }
+.obstacle.bloco     { background-color: #7a6a4a; }

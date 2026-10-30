@@ -1,5 +1,7 @@
 import { updateGame } from "./game.js";
 import { collidesWithObstacle } from "./obstacles.js";
+import { getCurrentRoom } from "./rooms.js";
+
 
 const SPEED = 0.3; // Altere este valor se quiser ele mais rápido ou devagar
 const MIN_X = 7;
@@ -24,8 +26,9 @@ function renderPlayer() {
 }
 
 export function setPlayerPosition(character) {
-    x = character === "rabbit" ? 85 : 15;
-    y = 50;
+    const { start } = getCurrentRoom();
+    x = start.x;
+    y = start.y;
 
     const playerElement = document.querySelector("#player");
     playerElement.classList.remove("rabbit", "fox", "walking");

@@ -4,12 +4,12 @@ import {
     canExit,
     resetPuzzle
 } from "./puzzle.js";
-import { renderObstacles } from "./obstacles.js";
+import { getCurrentRoom } from "./rooms.js";
+
 
 export function setupGame(onExit) {
     exitCallback = onExit;
     resetPuzzle();
-    renderObstacles(); // <- novo
     document.addEventListener("keydown", handleGameKey);
 }
 
@@ -37,6 +37,9 @@ export function updateGame() {
 }
 
 function handleGameKey(event) {
+    document.querySelector("#room-description").textContent =
+    getCurrentRoom().messages.locked;
+    
     const gameScreen = document.querySelector("#game-screen");
 
     if (gameScreen.hidden) return;

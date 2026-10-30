@@ -80,8 +80,8 @@
     top: 50%;
     left: 15%;
     display: grid;
-    width: 82px;
-    height: 82px;
+    width: 52px;
+    height: 52px;
     place-items: center;
     background-size: contain;
     background-repeat: no-repeat;
@@ -89,7 +89,7 @@
     
     /* Aqui usamos a variável --flip que o JS controla */
     transform: translate(-50%, -50%) scaleX(var(--flip, 1));
-    border:#0000000d 1px solid;
+    /* border:#0000000d 1px solid; */
 }
 
 /* === IMAGENS BASE (QUANDO ESTÁ PARADO) === */
@@ -312,7 +312,9 @@
 /* Imagens */
 .obstacle.caixote { background-image: url('../assets/sprites/caixote.png'); }
 .obstacle.mesa    { background-image: url('../assets/sprites/mesa-cientifica.png'); }
+.obstacle.bancada { background-image: url('../assets/sprites/bancada-experimentos.png'); }
+.obstacle.estante { background-image: url('../assets/sprites/estante.png'); }
+
 
 /* Provisórios, enquanto não há imagem destes tipos */
-.obstacle.bancada { background-color: #6b4d36; }
-.obstacle.estante { background-color: #5a4638; }
+

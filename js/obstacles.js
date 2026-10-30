@@ -3,18 +3,18 @@
 // Mantenha livres: a chave (centro, 50/50), a porta (direita, ~90-98 / 37-63)
 // e os pontos de início (coelho 85/50, raposa 15/50).
 export const OBSTACLES = [
-    { tipo: "bancada",  x: 18, y: 8,  w: 40, h: 12 }, // bancada com gaiolas
-    { tipo: "estante",  x: 66, y: 8,  w: 16, h: 14 },
-    { tipo: "mesa",     x: 27, y: 50, w: 19, h: 29 }, // mesa de laboratório
+    { tipo: "bancada",  x: 18, y: 5,  w: 25, h: 30 }, // bancada com gaiolas
+    { tipo: "estante",  x: 66, y: 5,  w: 15, h: 28 },
+    { tipo: "mesa",     x: 27, y: 50, w: 23, h: 35 }, // mesa de laboratório
     { tipo: "caixote",  x: 8,  y: 70, w: 8,  h: 16 },
     { tipo: "caixote",  x: 70, y: 70, w: 8,  h: 16 },
-    { tipo: "caixote",  x: 30, y: 34, w: 8,  h: 16 }, // atrapalha o caminho da raposa
+    { tipo: "caixote",  x: 70, y: 34, w: 8,  h: 16 }, // atrapalha o caminho da raposa
     { tipo: "caixote",  x: 64, y: 65, w: 8,  h: 16 }  // atrapalha o caminho do coelho
 ];
 
 // Metade do tamanho da hitbox do jogador (em %). É menor que o sprite de propósito.
-const HIT_HALF_W = 3.5;
-const HIT_HALF_H = 5;
+const HIT_HALF_W = 2.5;
+const HIT_HALF_H = 4;
 
 export function renderObstacles() {
     const room = document.querySelector("#room");

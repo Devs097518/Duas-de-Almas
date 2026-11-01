@@ -4,6 +4,7 @@ import { getCurrentRoom } from "./rooms.js";
 
 
 const SPEED = 0.3; // Altere este valor se quiser ele mais rápido ou devagar
+const RUN_MULTIPLIER = 1.7; // quanto mais rápido ao correr (ajuste a gosto)
 const MIN_X = 7;
 const MAX_X = 93;
 const MIN_Y = 10;
@@ -15,7 +16,8 @@ let y = 50;
 // Objeto para guardar quais teclas estão pressionadas agora
 const keys = {
     w: false, a: false, s: false, d: false,
-    arrowup: false, arrowdown: false, arrowleft: false, arrowright: false
+    arrowup: false, arrowdown: false, arrowleft: false, arrowright: false,
+    shift: false
 };
 
 function renderPlayer() {
@@ -31,9 +33,9 @@ export function setPlayerPosition(character) {
     y = start.y;
 
     const playerElement = document.querySelector("#player");
-    playerElement.classList.remove("rabbit", "fox", "walking");
+    playerElement.classList.remove("rabbit", "fox", "walking", "running");
     playerElement.classList.add(character);
-    
+
     // Usamos uma variável CSS para virar o personagem sem quebrar a animação
     playerElement.style.setProperty('--flip', 1);
 
@@ -58,8 +60,13 @@ export function setupPlayerMovement() {
         }
     });
 
+    window.addEventListener("blur", () => {
+        Object.keys(keys).forEach((k) => (keys[k] = false));
+    });
+
     // 2. O Game Loop roda 60 vezes por segundo para mover suavemente
     function gameLoop() {
+
         const gameScreen = document.querySelector("#game-screen");
         if (gameScreen.hidden) {
             requestAnimationFrame(gameLoop);
@@ -68,6 +75,8 @@ export function setupPlayerMovement() {
 
         let dx = 0;
         let dy = 0;
+
+        const currentSpeed = SPEED * (keys.shift ? RUN_MULTIPLIER : 1);
 
         // Calcula a direção baseada nas teclas
         if (keys.w || keys.arrowup) dy -= 1;
@@ -87,13 +96,13 @@ export function setupPlayerMovement() {
 
             // Atualiza posição
             // Testa X e Y separadamente: assim o personagem desliza pelos móveis em vez de travar
-            const nextX = Math.max(MIN_X, Math.min(MAX_X, x + dx * SPEED));
+            const nextX = Math.max(MIN_X, Math.min(MAX_X, x + dx * currentSpeed));
             if (!collidesWithObstacle(nextX, y)) x = nextX;
 
             const room = document.querySelector("#room");
             const aspect = room.clientWidth / room.clientHeight; // ~1.78, e se adapta ao redimensionar a tela
 
-            const nextY = Math.max(MIN_Y, Math.min(MAX_Y, y + dy * SPEED * aspect));
+            const nextY = Math.max(MIN_Y, Math.min(MAX_Y, y + dy * currentSpeed * aspect));
             if (!collidesWithObstacle(x, nextY)) y = nextY;
 
             // Vira o personagem para esquerda ou direita
@@ -102,11 +111,13 @@ export function setupPlayerMovement() {
 
             // Adiciona a classe de andar (ativa a animação do CSS)
             playerElement.classList.add("walking");
+            playerElement.classList.toggle("running", keys.shift);
             
             renderPlayer();
         } else {
             // Se soltou todas as teclas, para a animação
             playerElement.classList.remove("walking");
+            playerElement.classList.remove("walking", "running");
         }
 
         requestAnimationFrame(gameLoop);

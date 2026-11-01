@@ -25,12 +25,9 @@ export function checkKeyCollision() {
         hasKey = true;
         key.hidden = true;
 
-        document.querySelector("#room-description").textContent =
-            "Você encontrou a chave de fenda! Agora pode abrir o duto.";
-
         document.querySelector("#door").classList.add("unlocked");
         document.querySelector("#room-description").textContent =
-    getCurrentRoom().messages.found;
+            getCurrentRoom().messages.found;
     }
 }
 

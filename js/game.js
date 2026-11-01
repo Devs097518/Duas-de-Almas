@@ -37,9 +37,6 @@ export function updateGame() {
 }
 
 function handleGameKey(event) {
-    document.querySelector("#room-description").textContent =
-    getCurrentRoom().messages.locked;
-    
     const gameScreen = document.querySelector("#game-screen");
 
     if (gameScreen.hidden) return;
@@ -48,7 +45,7 @@ function handleGameKey(event) {
 
     if (!canExit()) {
         document.querySelector("#room-description").textContent =
-            "A saída está trancada. Encontre a chave primeiro.";
+            getCurrentRoom().messages.locked;
     }
 }
 

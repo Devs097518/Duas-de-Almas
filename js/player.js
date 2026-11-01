@@ -13,6 +13,13 @@ const MAX_Y = 90;
 let x = 15;
 let y = 50;
 
+let movementLocked = false;
+
+export function setMovementLocked(locked) {
+    movementLocked = locked;
+    if (locked) Object.keys(keys).forEach((k) => (keys[k] = false));
+}
+
 // Objeto para guardar quais teclas estão pressionadas agora
 const keys = {
     w: false, a: false, s: false, d: false,
@@ -68,7 +75,7 @@ export function setupPlayerMovement() {
     function gameLoop() {
 
         const gameScreen = document.querySelector("#game-screen");
-        if (gameScreen.hidden) {
+        if (gameScreen.hidden || movementLocked) {
             requestAnimationFrame(gameLoop);
             return;
         }

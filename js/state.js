@@ -1,7 +1,8 @@
 export const gameState = {
     selectedCharacter: null,
     currentScreen: "selection",
-    puzzleSolved: false
+    puzzleSolved: false,
+    currentPhase: 1
 };
 
 export function selectCharacter(character) {

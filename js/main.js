@@ -5,17 +5,20 @@ import {
     setPlayerPosition
 } from "./player.js";
 import { setupGame, startRoom } from "./game.js";
-import { ROOMS, setCurrentRoom } from "./rooms.js";
+import { ROOMS, setCurrentRoom, getTotalPhases } from "./rooms.js";
 import { renderObstacles } from "./obstacles.js";
 
+
 function startGame(character) {
-    const room = ROOMS[character];
+    const room = ROOMS[character][gameState.currentPhase - 1];
     setCurrentRoom(room);
 
     document.querySelector("#room-description").textContent = room.intro;
     document.querySelector(".room-header h2").textContent = room.title; 
-
     document.querySelector("#room").dataset.theme = room.theme;
+    document.querySelector("#phase-counter").textContent =
+    `${gameState.currentPhase}/${getTotalPhases(character)}`;
+
     renderObstacles(room.obstacles);
 
     const key = document.querySelector("#key");

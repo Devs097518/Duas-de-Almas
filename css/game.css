@@ -20,7 +20,23 @@
 }
 
 .room-header {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+.room-header .phase-counter {
+    margin: 0;
+    padding: 6px 16px;
+    border-radius: 999px;
+    background: #000;
+    color: #fff;
+    font-size: 0.9rem;
+}
+
+.phase-counter:empty {
+    display: none;
 }
 
 .room-header h2 {

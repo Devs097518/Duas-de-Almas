@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/menu.css">
     <link rel="stylesheet" href="css/game.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
 
     <script type="module" src="js/main.js"></script>
 </head>
@@ -54,26 +55,19 @@
         <section id="game-screen" class="screen" hidden>
             <header class="room-header">
                 <h2>A sala do enigma</h2>
-                <p id="room-description"></p>
             </header>
 
-            <div id="room" class="room">
-                <div class="room-wall wall-top"></div>
-                <div class="room-wall wall-bottom"></div>
-                <div class="room-wall wall-left"></div>
-                <div class="room-wall wall-right"></div>
+            <div class="room-wrapper">
+                <div id="room" class="room">
+                    <div id="player" class="player" aria-label="Personagem"></div>
 
-                <div id="player" class="player" aria-label="Personagem"></div>
+                    <div id="key" class="key" aria-label="Chave de fenda"></div>
 
-                <div id="key" class="key" aria-label="Chave de fenda"></div>
-
-                <div id="door" class="door" aria-label="Duto de ventilação"></div>
+                    <div id="door" class="door" aria-label="Duto de ventilação"></div>
                 </div>
-            </div>
 
-            <p class="room-instructions">
-                Explore a sala e encontre a chave para abrir a saída.
-            </p>
+                <p id="room-description" class="dialogue"></p>
+            </div>
         </section>
 
 

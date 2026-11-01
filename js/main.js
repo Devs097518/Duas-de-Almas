@@ -13,8 +13,7 @@ function startGame(character) {
     setCurrentRoom(room);
 
     document.querySelector("#room-description").textContent = room.intro;
-    document.querySelector(".room-header h2").textContent = room.title;
-    document.querySelector(".room-instructions").textContent = room.instructions;
+    document.querySelector(".room-header h2").textContent = room.title; 
 
     document.querySelector("#room").dataset.theme = room.theme;
     renderObstacles(room.obstacles);

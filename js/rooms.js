@@ -6,12 +6,12 @@ export const ROOMS = {
     rabbit: {
         theme: "lab", // vira data-theme="lab" no #room (ver CSS)
         title: "A sala do enigma",
-        intro: "Você escolheu o coelho. Sua jornada começa à direita.",
-        instructions: "Explore a sala e encontre a chave de fenda para abrir o duto.",
+        intro: "Onde eu estou? Preciso encontrar uma saída ...",
         messages: {
-            found: "Você encontrou a chave de fenda! Agora pode abrir o duto.",
-            locked: "O duto está lacrado. Encontre a chave de fenda primeiro."
+            found: "Achei a chave de fenda! Agora posso abrir o duto.",
+            locked: "O duto está trancado. Preciso encontrar uma chave de fenda para abri-lo ..."
         },
+        instructions: "Explore a sala e encontre a chave de fenda para abrir o duto.",
         start: { x: 85, y: 50 },
         key:   { x: 10, y: 10 },
         exit:  { left: "90%", right: "auto", top: "85%", bottom: "auto" }, // canto sup. esquerdo

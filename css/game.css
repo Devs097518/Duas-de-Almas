@@ -343,3 +343,44 @@
 /* Obstáculos provisórios da raposa (troque por background-image depois) */
 .obstacle.divisoria { background-color: #5b6b4a; }
 .obstacle.bloco     { background-color: #7a6a4a; }
+
+/* Tema do esgoto */
+.room[data-theme="esgoto"] {
+    background-color: #4d6b5a;
+    /* SPRITE: fundo do esgoto -> background-image: url('../assets/images/esgoto-fundo.png'); background-size: cover; */
+}
+
+/* Ratos */
+.enemy {
+    position: absolute;
+    z-index: 2;
+    box-sizing: border-box;
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+    image-rendering: pixelated;
+}
+
+.enemy.rato {
+    background-image: url('../assets/sprites/rato-sombrio-correndo.gif'); /* provisório */
+    /* SPRITE: rato -> background-image: url('../assets/sprites/rato.png'); */
+}
+
+/* Duto de entrada (à direita) */
+.obstacle.duto-entrada {
+    background-color: #2b2b2b; /* provisório */
+    /* SPRITE: duto de entrada -> background-image: url('../assets/sprites/duto-entrada.png'); */
+}
+
+/* Cano de saída (à esquerda) */
+.room[data-theme="esgoto"] .door {
+    border-radius: 0;
+    background-color: #39473a; /* provisório */
+}
+
+.room[data-theme="esgoto"] .door.unlocked {
+    /* SPRITE: cano de saída -> background-image: url('../assets/sprites/cano-saida.png'); */
+    background-color: #364338;
+}

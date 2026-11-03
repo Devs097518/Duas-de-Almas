@@ -4,13 +4,14 @@ import { getCurrentRoom } from "./rooms.js";
 let hasKey = false;
 
 export function resetPuzzle() {
-    hasKey = false;
+    const needsKey = Boolean(getCurrentRoom().key);
+    hasKey = !needsKey;
 
     const key = document.querySelector("#key");
     const door = document.querySelector("#door");
 
-    key.hidden = false;
-    door.classList.remove("unlocked");
+    key.hidden = !needsKey;
+    door.classList.toggle("unlocked", !needsKey);
 }
 
 export function checkKeyCollision() {

@@ -25,7 +25,30 @@ export const ROOMS = {
                 { tipo: "caixote", x: 70, y: 34, w: 7,  h: 16 },
                 { tipo: "caixote", x: 90, y: 70, w: 7,  h: 16 }
             ]
-        }
+        },
+        {
+            theme: "esgoto",
+            title: "A Encanação",
+            intro: "Vejo uma luz no fim do túnel. Mas espera... Ratazanas?!",
+            start: { x: 85, y: 50 },
+            key: null, // sem chave nesta sala: a saída já nasce aberta
+            exit: { left: "0%", right: "auto", top: "37%", bottom: "auto", width: "10%", height: "25%" }, // cano
+            obstacles: [
+                { tipo: "duto-entrada", x: 91, y: 40, w: 2, h: 20 } // de onde o coelho veio
+            ],
+            enemies: {
+                speed: 40,         // % da altura da sala por segundo (maior = mais rápido)
+                minY: 10, maxY: 90,
+                w: 9,              // largura de cada rato, em % da sala
+                list: [
+                    { tipo: "rato", x: 21, from: "bottom" }, // sobe
+                    { tipo: "rato", x: 34, from: "top" },    // desce
+                    { tipo: "rato", x: 50, from: "bottom" },
+                    { tipo: "rato", x: 63, from: "top" },
+                    { tipo: "rato", x: 76, from: "bottom" }
+                ]
+            }
+        },
     ],
 
     // PROVISÓRIO: layout em "S" só para a raposa ter um caminho diferente.

@@ -7,6 +7,7 @@ import {
 import { setupGame, startRoom } from "./game.js";
 import { ROOMS, setCurrentRoom, getTotalPhases } from "./rooms.js";
 import { renderObstacles } from "./obstacles.js";
+import { startEnemies } from "./enemies.js";
 
 
 function startGame(character) {
@@ -22,10 +23,14 @@ function startGame(character) {
     renderObstacles(room.obstacles);
 
     const key = document.querySelector("#key");
-    key.style.left = `${room.key.x}%`;
-    key.style.top = `${room.key.y}%`;
+    key.removeAttribute("style");
+    if (room.key) {
+        key.style.left = `${room.key.x}%`;
+        key.style.top = `${room.key.y}%`;
+    }
 
     const door = document.querySelector("#door");
+    door.removeAttribute("style");
     Object.assign(door.style, room.exit);
 
     const player = document.querySelector("#player");
@@ -33,6 +38,10 @@ function startGame(character) {
     setPlayerPosition(character);
 
     startRoom();
+    startEnemies(room.enemies, {
+        onHit: () => startGame(character),
+        isPaused: () => isTransitioning
+    });
     showScreen("game-screen");
 }
 
@@ -83,16 +92,28 @@ function showScreen(screenId, { fade = true } = {}) {
 function restartGame() {
     gameState.selectedCharacter = null;
     gameState.puzzleSolved = false;
+    gameState.currentPhase = 1;
 
     showScreen("character-selection");
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    setupMenu(startGame);
+    setupMenu((character) => {
+        gameState.currentPhase = 1;
+        startGame(character);
+    });
     setupPlayerMovement();
     setupGame(() => {
-    showScreen("ending-screen");
-});
+        const character = gameState.selectedCharacter;
+
+        if (gameState.currentPhase < getTotalPhases(character)) {
+            gameState.currentPhase += 1;
+            startGame(character);
+            return;
+        }
+
+        showScreen("ending-screen");
+    });
     document
         .querySelector("#restart-button")
         .addEventListener("click", restartGame);

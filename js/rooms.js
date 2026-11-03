@@ -37,9 +37,9 @@ export const ROOMS = {
                 { tipo: "duto-entrada", x: 91, y: 40, w: 2, h: 20 } // de onde o coelho veio
             ],
             enemies: {
-                speed: 40,         // % da altura da sala por segundo (maior = mais rápido)
+                speed: 45,         // % da altura da sala por segundo (maior = mais rápido)
                 minY: 10, maxY: 90,
-                w: 9,              // largura de cada rato, em % da sala
+                w: 7,              // largura de cada rato, em % da sala
                 list: [
                     { tipo: "rato", x: 21, from: "bottom" }, // sobe
                     { tipo: "rato", x: 34, from: "top" },    // desce

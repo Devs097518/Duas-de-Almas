@@ -1,3 +1,48 @@
+import { isElevated, canClimbFrom } from "./climb.js";
+
+let tooHighShown = false;
+let hintShown = false;
+
+function say(text) {
+    if (text) document.querySelector("#room-description").textContent = text;
+}
+
+export function startRoom() {
+    isExiting = false;
+    tooHighShown = false;
+    hintShown = false;
+    resetPuzzle();
+}
+
+export function updateGame(x, y) {
+    checkKeyCollision();
+    if (isExiting) return;
+
+    const room = getCurrentRoom();
+
+    // Dica de que dá para subir (uma vez a cada aproximação)
+    const nearClimb = !isElevated() && canClimbFrom(x, y);
+    if (nearClimb && !hintShown) say(room.messages?.climbHint);
+    hintShown = nearClimb;
+
+    const player = document.querySelector("#player");
+    const door = document.querySelector("#door");
+    const touching = isColliding(player, door, 0.25);
+
+    // Saída no alto: só vale para quem está em cima de algo
+    if (room.exitRequiresClimb && !isElevated()) {
+        if (touching && !tooHighShown) say(room.messages?.tooHigh);
+        tooHighShown = touching;
+        return;
+    }
+
+    if (!canExit()) return;
+
+    if (touching) {
+        isExiting = true;
+        exitCallback?.();
+    }
+}
 
 import {
     checkKeyCollision,
@@ -15,26 +60,6 @@ export function setupGame(onExit) {
 
 let exitCallback = null;
 let isExiting = false;
-
-
-export function startRoom() {
-    isExiting = false;
-    resetPuzzle();
-}
-
-export function updateGame() {
-    checkKeyCollision();
-
-    if (isExiting || !canExit()) return;
-
-    const player = document.querySelector("#player");
-    const door = document.querySelector("#door");
-
-    if (isColliding(player, door, 0.25)) {
-        isExiting = true;
-        exitCallback?.();
-    }
-}
 
 function handleGameKey(event) {
     const gameScreen = document.querySelector("#game-screen");

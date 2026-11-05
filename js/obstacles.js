@@ -1,6 +1,10 @@
 // Metade do tamanho da hitbox do jogador (em %). É menor que o sprite de propósito.
-const HIT_HALF_W = 2.5;
-const HIT_HALF_H = 4;
+export const HIT_HALF_W = 2.5;   // antes era const sem export
+export const HIT_HALF_H = 4;
+
+export function getObstacles() {
+    return currentObstacles;
+}
 
 // Obstáculos da sala que está ativa (vêm de rooms.js)
 let currentObstacles = [];

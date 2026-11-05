@@ -10,12 +10,15 @@ export const ROOMS = {
             title: "A sala do enigma",
             intro: "Onde eu estou? Preciso encontrar uma saída ...",
             messages: {
-                found: "Achei a chave de fenda! Agora posso abrir o duto.",
-                locked: "O duto está trancado. Preciso encontrar uma chave de fenda para abri-lo ..."
+                found: "Achei a chave de fenda! Agora só preciso alcançar o duto, lá no alto.",
+                locked: "O duto está trancado. Preciso encontrar uma chave de fenda para abri-lo ...",
+                tooHigh: "Está alto demais. Preciso subir em alguma coisa.",
+                climbHint: "Dá para subir aqui. (Espaço)"
             },
+            exitRequiresClimb: true,
+            exit: { left: "86%", right: "auto", top: "0%", bottom: "auto", width: "8%", height: "12%" },
             start: { x: 85, y: 50 },
             key:   { x: 10, y: 10 },
-            exit:  { left: "90%", right: "auto", top: "85%", bottom: "auto" }, // canto inf. direito
             obstacles: [
                 { tipo: "bancada", x: 18, y: 5,  w: 25, h: 27 }, // bancada com gaiolas
                 { tipo: "estante", x: 66, y: 5,  w: 15, h: 28 },
@@ -23,7 +26,8 @@ export const ROOMS = {
                 { tipo: "caixote", x: 8,  y: 70, w: 7,  h: 16 },
                 { tipo: "caixote", x: 70, y: 70, w: 7,  h: 16 },
                 { tipo: "caixote", x: 70, y: 34, w: 7,  h: 16 },
-                { tipo: "caixote", x: 90, y: 70, w: 7,  h: 16 }
+                { tipo: "caixote", x: 90, y: 70, w: 7,  h: 16 },
+                { tipo: "pilha-caixotes", x: 84, y: 12, w: 12, h: 22, escalavel: true },
             ]
         },
         {

@@ -122,7 +122,7 @@
     background-position: center;
     
     /* Aqui usamos a variável --flip que o JS controla */
-    transform: translate(-50%, -50%) scaleX(var(--flip, 1));
+    transform: translate(-50%, calc(-50% + var(--lift, 0px))) scaleX(var(--flip, 1));
     /* border:#0000000d 1px solid; */
 }
 
@@ -133,6 +133,20 @@
 
 .player.fox {
     background-image: url('../assets/sprites/raposa.png');
+}
+
+/* Personagem em cima de algo: sobe um pouco e ganha sombra */
+.player.elevated {
+    --lift: -14px;
+    z-index: 4;
+    filter: drop-shadow(0 14px 2px #0005);
+}
+
+/* Pilha de caixotes sob o duto */
+.obstacle.pilha-caixotes {
+    background-image: url('../assets/sprites/pilha-caixotess.png');
+    /* background-color: #a07a4c; provisório */
+    /* SPRITE: pilha de caixotes -> background-image: url('../assets/sprites/pilha-caixotes.png'); */
 }
 
 /* === ANIMAÇÕES DE ANDAR === */

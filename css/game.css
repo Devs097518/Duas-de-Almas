@@ -354,6 +354,28 @@
 /* Fundo por tema */
 .room[data-theme="raposa"] { background-color: #8fa57d; }
 
+/* Caminhos do mini labirinto do coelho */
+.room[data-theme="labirinto"] {
+    background-color: #514638;
+    background-image:
+        radial-gradient(#ffffff0b 1px, transparent 1px);
+    background-size: 12px 12px;
+}
+
+.room[data-theme="labirinto"] .obstacle.parede-labirinto {
+    opacity: 0;
+}
+
+.maze-path {
+    position: absolute;
+    z-index: 0;
+    box-sizing: border-box;
+    border: 2px solid #d6bd86;
+    border-radius: 8px;
+    background-color: #b69a68;
+    box-shadow: inset 0 0 0 2px #c9ad7b, 0 2px 3px #241d17aa;
+}
+
 /* Obstáculos provisórios da raposa (troque por background-image depois) */
 .obstacle.divisoria { background-color: #5b6b4a; }
 .obstacle.bloco     { background-color: #7a6a4a; }

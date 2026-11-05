@@ -9,11 +9,22 @@ export function getObstacles() {
 // Obstáculos da sala que está ativa (vêm de rooms.js)
 let currentObstacles = [];
 
-export function renderObstacles(obstacles) {
+export function renderObstacles(obstacles, paths = []) {
     currentObstacles = obstacles;
 
     const room = document.querySelector("#room");
     room.querySelectorAll(".obstacle").forEach((el) => el.remove());
+    room.querySelectorAll(".maze-path").forEach((el) => el.remove());
+
+    paths.forEach((path) => {
+        const el = document.createElement("div");
+        el.className = "maze-path";
+        el.style.left = `${path.x}%`;
+        el.style.top = `${path.y}%`;
+        el.style.width = `${path.w}%`;
+        el.style.height = `${path.h}%`;
+        room.appendChild(el);
+    });
 
     obstacles.forEach((o) => {
         const el = document.createElement("div");

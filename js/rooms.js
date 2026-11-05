@@ -31,6 +31,35 @@ export const ROOMS = {
             ]
         },
         {
+            theme: "labirinto",
+            title: "Corredores do laboratório",
+            intro: "Encontrei vários corredores. Preciso achar uma passagem até o esgoto.",
+            start: { x: 85, y: 50 },
+            key: null,
+            exit: { left: "0%", right: "auto", top: "42%", bottom: "auto", width: "8%", height: "16%" },
+            paths: [
+                { x: 74, y: 44, w: 18, h: 12 },
+                { x: 66, y: 50, w: 8, h: 32 },
+                { x: 46, y: 70, w: 28, h: 12 },
+                { x: 42, y: 18, w: 8, h: 64 },
+                { x: 24, y: 14, w: 27, h: 12 },
+                { x: 18, y: 18, w: 8, h: 36 },
+                { x: 4, y: 44, w: 22, h: 12 },
+                { x: 76, y: 18, w: 15, h: 10 },
+                { x: 83, y: 23, w: 8, h: 28 },
+                { x: 57, y: 29, w: 8, h: 47 },
+                { x: 57, y: 25, w: 17, h: 8 },
+                { x: 32, y: 48, w: 14, h: 8 },
+                { x: 32, y: 54, w: 8, h: 16 }
+            ],
+            obstacles: [
+                { tipo: "parede-labirinto", x: 72, y: 10, w: 3, h: 29 },
+                { tipo: "parede-labirinto", x: 72, y: 61, w: 3, h: 29 },
+                { tipo: "parede-labirinto", x: 50, y: 10, w: 3, h: 57 },
+                { tipo: "parede-labirinto", x: 28, y: 34, w: 3, h: 56 }
+            ]
+        },
+        {
             theme: "esgoto",
             title: "A Encanação",
             intro: "Vejo uma luz no fim do túnel. Mas espera... Ratazanas?!",

@@ -20,7 +20,7 @@ function startGame(character) {
     document.querySelector("#phase-counter").textContent =
     `${gameState.currentPhase}/${getTotalPhases(character)}`;
 
-    renderObstacles(room.obstacles);
+    renderObstacles(room.obstacles, room.paths);
 
     const key = document.querySelector("#key");
     key.removeAttribute("style");

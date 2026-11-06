@@ -356,24 +356,18 @@
 
 /* Caminhos do mini labirinto do coelho */
 .room[data-theme="labirinto"] {
-    background-color: #514638;
+    background-color: #504d4a;
     background-image:
         radial-gradient(#ffffff0b 1px, transparent 1px);
     background-size: 12px 12px;
-}
-
-.room[data-theme="labirinto"] .obstacle.parede-labirinto {
-    opacity: 0;
 }
 
 .maze-path {
     position: absolute;
     z-index: 0;
     box-sizing: border-box;
-    border: 2px solid #d6bd86;
-    border-radius: 8px;
-    background-color: #b69a68;
-    box-shadow: inset 0 0 0 2px #c9ad7b, 0 2px 3px #241d17aa;
+    background-color: #7d7d7d;
+    box-shadow: inset 0 0 0 2px #7d7d7d, 0 2px 3px #7d7d7d;
 }
 
 /* Obstáculos provisórios da raposa (troque por background-image depois) */
@@ -404,10 +398,9 @@
     /* SPRITE: rato -> background-image: url('../assets/sprites/rato.png'); */
 }
 
-/* Duto de entrada (à direita) */
-.obstacle.duto-entrada {
-    background-color: #2b2b2b; /* provisório */
-    /* SPRITE: duto de entrada -> background-image: url('../assets/sprites/duto-entrada.png'); */
+/* Duto de entrada na sala dos corredores */
+.room[data-theme="labirinto"] .obstacle.duto-entrada {
+    background-image: url('../assets/sprites/duto.png');
 }
 
 /* Cano de saída (à esquerda) */

@@ -2,23 +2,71 @@ import { gameState } from "./state.js";
 import { setupMenu } from "./menu.js";
 import {
     setupPlayerMovement,
-    setPlayerPosition
+    setPlayerPosition,
+    setMovementLocked
 } from "./player.js";
 import { setupGame, startRoom } from "./game.js";
 import { ROOMS, setCurrentRoom, getTotalPhases } from "./rooms.js";
 import { renderObstacles } from "./obstacles.js";
 import { startEnemies } from "./enemies.js";
+import { STORIES } from "./story.js";
 
+console.log("main.js carregado");
 
-function startGame(character) {
-    const room = ROOMS[character][gameState.currentPhase - 1];
+// ===== Transições =====
+const FADE_MS = 500; // se mudar aqui, mude o transition do #fade-overlay no CSS
+let isTransitioning = false;
+
+// Escurece a tela, executa a troca no escuro e clareia de novo
+function fadeThrough(onDark) {
+    if (isTransitioning) return;
+    isTransitioning = true;
+    setMovementLocked(true);
+
+    const overlay = document.querySelector("#fade-overlay");
+    overlay.classList.add("active");          // escurece
+
+    setTimeout(() => {
+        onDark();                             // troca no escuro
+        overlay.classList.remove("active");   // clareia
+
+        setTimeout(() => {
+            isTransitioning = false;
+            setMovementLocked(false);
+        }, FADE_MS);
+    }, FADE_MS);
+}
+
+function showScreen(screenId, { fade = true } = {}) {
+    const swap = () => {
+        document.querySelectorAll(".screen").forEach((screen) => {
+            screen.hidden = screen.id !== screenId;
+        });
+        gameState.currentScreen = screenId;
+    };
+
+    // Sem transição (usado na primeira tela)
+    if (!fade) {
+        swap();
+        return;
+    }
+
+    fadeThrough(swap);
+}
+
+// ===== Gameplay =====
+
+// Monta a sala da fase indicada (1, 2, 3...) do caminho do personagem.
+// Não troca de tela: quem chama decide se isso acontece no escuro (fadeThrough) ou não.
+function loadPhase(character, phase) {
+    const room = ROOMS[character][phase - 1];
     setCurrentRoom(room);
 
     document.querySelector("#room-description").textContent = room.intro;
-    document.querySelector(".room-header h2").textContent = room.title; 
+    document.querySelector(".room-header h2").textContent = room.title;
     document.querySelector("#room").dataset.theme = room.theme;
     document.querySelector("#phase-counter").textContent =
-    `${gameState.currentPhase}/${getTotalPhases(character)}`;
+        `${phase}/${getTotalPhases(character)}`;
 
     renderObstacles(room.obstacles, room.paths);
 
@@ -39,56 +87,84 @@ function startGame(character) {
 
     startRoom();
     startEnemies(room.enemies, {
-        onHit: () => startGame(character),
+        // bateu num rato: refaz a mesma sala, com o mesmo fade
+        onHit: () => fadeThrough(() => loadPhase(character, phase)),
         isPaused: () => isTransitioning
     });
+}
+
+// Começa o jogo (fase 1) depois da história
+function startGameplay(character) {
+    gameState.currentPhase = 1;
+    loadPhase(character, gameState.currentPhase);
     showScreen("game-screen");
 }
 
-console.log("main.js carregado");
+// Chamado quando o jogador entra no duto
+function handleRoomExit() {
+    const character = gameState.selectedCharacter;
 
-// Posição do duto por personagem. Para canto inferior: top: "auto" e bottom: "5%"
-const EXITS = {
-    rabbit: { left: "auto", right: "2%",   top: "85%", bottom: "auto" }, 
-    fox:    { left: "auto", right: "3%",   top: "5%", bottom: "auto" }  // sup. direito
-};
-
-
-const FADE_MS = 500;
-let isTransitioning = false;
-
-function showScreen(screenId, { fade = true } = {}) {
-    const swap = () => {
-        document.querySelectorAll(".screen").forEach((screen) => {
-            screen.hidden = screen.id !== screenId;
-        });
-        gameState.currentScreen = screenId;
-    };
-
-    // Sem transição (usado na primeira tela)
-    if (!fade) {
-        swap();
-        return;
+    if (gameState.currentPhase < getTotalPhases(character)) {
+        gameState.currentPhase += 1;
+        fadeThrough(() => loadPhase(character, gameState.currentPhase));
+    } else {
+        showScreen("ending-screen");
     }
-
-    if (isTransitioning) return;
-    isTransitioning = true;
-
-    const overlay = document.querySelector("#fade-overlay");
-
-    overlay.classList.add("active");          // escurece
-
-    setTimeout(() => {
-        swap();                               // troca a tela no escuro
-        overlay.classList.remove("active");   // clareia
-
-        setTimeout(() => {
-            isTransitioning = false;
-        }, FADE_MS);
-    }, FADE_MS);
 }
 
+// ===== História em quadrinhos =====
+let storyIndex = 0;
 
+function renderScene(character, index) {
+    const scene = STORIES[character][index];
+    const image = document.querySelector("#story-image");
+
+    image.src = scene.image;
+    image.alt = scene.alt ?? "";
+    document.querySelector("#story-text").textContent = scene.text;
+}
+
+// Carrega todas as imagens de antemão, para não piscar ao trocar de cena
+function preloadStory(character) {
+    STORIES[character].forEach((scene) => {
+        new Image().src = scene.image;
+    });
+}
+
+// Chamada quando o jogador escolhe o personagem no menu
+function startStory(character) {
+    storyIndex = 0;
+    preloadStory(character);
+    renderScene(character, storyIndex);
+    showScreen("story-screen");
+}
+
+function advanceStory() {
+    const character = gameState.selectedCharacter;
+
+    if (storyIndex < STORIES[character].length - 1) {
+        storyIndex += 1;
+        fadeThrough(() => renderScene(character, storyIndex));
+    } else {
+        startGameplay(character); // acabou a história: fade e começa o jogo
+    }
+}
+
+function handleStoryKey(event) {
+    if (gameState.currentScreen !== "story-screen") return;
+    if (isTransitioning) return;                                   // ignora teclas durante o fade
+    if (event.repeat || event.ctrlKey || event.metaKey || event.altKey) return;
+    if (/^F\d+$/.test(event.key)) return;                          // F5, F12...
+
+    // evita que Espaço e setas rolem a página
+    if ([" ", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) {
+        event.preventDefault();
+    }
+
+    advanceStory();
+}
+
+// ===== Reinício =====
 function restartGame() {
     gameState.selectedCharacter = null;
     gameState.puzzleSolved = false;
@@ -98,22 +174,12 @@ function restartGame() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    setupMenu((character) => {
-        gameState.currentPhase = 1;
-        startGame(character);
-    });
+    setupMenu(startStory);
     setupPlayerMovement();
-    setupGame(() => {
-        const character = gameState.selectedCharacter;
+    setupGame(handleRoomExit);
 
-        if (gameState.currentPhase < getTotalPhases(character)) {
-            gameState.currentPhase += 1;
-            startGame(character);
-            return;
-        }
+    window.addEventListener("keydown", handleStoryKey);
 
-        showScreen("ending-screen");
-    });
     document
         .querySelector("#restart-button")
         .addEventListener("click", restartGame);

@@ -413,3 +413,52 @@
     /* SPRITE: cano de saída -> background-image: url('../assets/sprites/cano-saida.png'); */
     background-color: #364338;
 }
+
+/* === HISTÓRIA === */
+#story-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 32px 16px;
+    background: #8c7e70;
+    font-family: "Space Mono", "Courier New", monospace;
+}
+
+/* garante que o atributo hidden continue escondendo a tela */
+#story-screen[hidden] {
+    display: none;
+}
+
+.story-frame {
+    width: 100%;
+    aspect-ratio: 16 / 9;   /* mesmo tamanho da sala */
+    overflow: hidden;
+    background: #000;
+}
+
+.story-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;      /* preenche a área; use "contain" se não quiser cortar nada */
+}
+
+.story-frame + .dialogue p {
+    margin: 0;
+}
+
+.story-hint {
+    display: block;
+    margin-top: 8px;
+    color: #9a9a9a;
+    font-size: 0.75rem;
+    text-align: right;
+    animation: piscar 1.2s ease-in-out infinite;
+}
+
+@keyframes piscar {
+    0%, 100% { opacity: 0.35; }
+    50%      { opacity: 1; }
+}

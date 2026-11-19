@@ -7,12 +7,12 @@
 
 export const STORIES = {
     rabbit: [
-        { image: "assets/images/historia/coelho-1.jpeg", text: "Texto narrativo da cena 1 do coelho." },
-        { image: "assets/images/historia/coelho-2.jpeg", text: "Texto narrativo da cena 2 do coelho." },
-        { image: "assets/images/historia/coelho-3.jpeg", text: "Texto narrativo da cena 3 do coelho." },
-        { image: "assets/images/historia/coelho-4.jpeg", text: "Texto narrativo da cena 4 do coelho." },
-        { image: "assets/images/historia/coelho-5.jpeg", text: "Texto narrativo da cena 5 do coelho." },
-        { image: "assets/images/historia/coelho-6.jpeg", text: "Texto narrativo da cena 6 do coelho." }
+        { image: "assets/images/historia/coelho-1.png", text: "Eu vivia com minha família, outros coelhos como eu, em um lar tranquilo na floresta." },
+        { image: "assets/images/historia/coelho-2.png", text: "Um dia, saí para procurar comida pela floresta..." },
+        { image: "assets/images/historia/coelho-3.png", text: "...Mas acabei sendo capturado e levado para um laboratório." },
+        { image: "assets/images/historia/coelho-4.png", text: "Agora, vivo preso neste laboratório., longe da minha família" },
+        { image: "assets/images/historia/coelho-5.png", text: "Mas eu ainda sonho em voltar para casa, para minha família, um dia..." },
+        { image: "assets/images/historia/coelho-6.png", text: "...e reenconhar meu lar novamente." }
     ],
 
     fox: [
